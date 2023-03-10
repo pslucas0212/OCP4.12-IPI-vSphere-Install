@@ -3,18 +3,17 @@
 In progress on 10 March 2023
 
 
-The release of OpenShift 4.7 added a new vSphere IPI installation option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
+The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
 
-The "straight" out of the box installation creates three masters noes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
+The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
 
-FYI.... The lab I'm using for this installation is made up of three x86 8-core 64GB RAM machines formally used for gaming purposes.  The EXSI environment is a bare bones VMWare vSphere Essentials 6.7 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
+For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formally used for gaming purposes.  The EXSI environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
 
-OCP 4.7 installation documentation can be found here -> [https://docs.openshift.com/container-platform/4.7/welcome/index.html](https://docs.openshift.com/container-platform/4.7/welcome/index.html)
 
 ## Installation Steps
 
 ### Installation Pre-reqs:
-For this OCP 4.7 IPI vSphere installation, you need DNS and DHCP available to the cluster.
+For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.
 - DNS service - For the installation you need to define two static IP address.  One for the cluster api access - api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.
   - Forward zone settings - example.com file
     - api.ocp4	IN	A	10.1.10.201
@@ -121,4 +120,5 @@ INFO Time elapsed: 37m47s
 ```
 11. You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
 
- 
+ ### Appendix
+ - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
