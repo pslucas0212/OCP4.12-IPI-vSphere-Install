@@ -91,6 +91,7 @@ $ tar xvf openshift-install-linux.tar.gz
   
    <img src="images/treecertsv2.jpg" width="350"/>
  7. Run the following commands to update your system trust.
+ 
 ``` 
 $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
 $ sudo update-ca-trust extract
@@ -101,6 +102,23 @@ $ sudo update-ca-trust extract
  ```   
 $ ./openshift-install create cluster --dir=ocp47 --log-level=info
  ``` 
+ There is a known bug in OpenShift installer for 4.12 and you will have to generat the install-config.yaml first and the modify.  
+ - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
+ ```
+ $ ./openshift-install create install-config --dir=ocp412
+ ```
+ Lookf for the platform section in the install-config.yaml and modify both the apiVIPs and ingressVIPs IP addresses.
+ ```
+ platform:
+  vsphere:
+    apiVIPs:
+    - 10.1.10.201
+    cluster: LabCluster
+    datacenter: LabDatacenter
+    defaultDatastore: LabDatastore
+    ingressVIPs:
+    - 10.1.10.202
+ ```
  9. The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
   
   
