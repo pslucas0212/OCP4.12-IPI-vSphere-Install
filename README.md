@@ -130,8 +130,8 @@ At the time that I created this article, there was a known bug in the OpenShift 
 - Due to the bug, the install is a two step process.  First we will run the install command create install-config command to generate the install-config.yaml that we will modify.  The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
   
    Here is the list of questions the installer will ask you:  
-        +1.  SSH Public Key. 
-        +2.  Platform - chose vSphere   
+ + 1.  SSH Public Key. 
+ + 2.  Platform - chose vSphere   
         3.  vCenter - provide the url to your vCenter - vsca01.exanple.com  
         4.  Username - the username for your vCenter - administator@vsphere.local  
         5.  Password - the password for your vCenter user - *******  
