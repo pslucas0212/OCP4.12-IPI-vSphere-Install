@@ -14,14 +14,27 @@ For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RA
 
 ### Installation Pre-reqs:
 For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.
-- DNS service - For the installation you need to define two static IP address.  One for the cluster api access - api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.
-  - Forward zone settings - example.com file
-    - api.ocp4	IN	A	10.1.10.201
-    - *.apps.ocp4	IN	A	10.1.10.202
-  - Reverse zone settings 10.1.10.db file
-    - api.ocp4	A	10.1.10.201
-    - *.apps.ocp4	A	10.1.10.202
-    - 201	IN	PTR	api.ocp4.example.com.
+- DNS service - For the installation you need to define two static IP address.  One for the cluster api access - api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
+
+
+ File Name | Location | Info
+ ----------|----------|------
+ db.10.1.10.in-addr.arpa | /var/named/dynamic | reverse zone file
+ db.example.com | /var/named/dynamic | forward zone file
+
+
+  - Add the following to the forward zone db.example.com file
+  ```
+  api.ocp4	IN	A	10.1.10.201
+  *.apps.ocp4	IN	A	10.1.10.202
+  ```
+  
+  - Add the following to the reverse zone db.10.1.10.in-addr.arpa file
+  ```
+  api.ocp4	A	10.1.10.201
+  *.apps.ocp4	A	10.1.10.202
+  201	IN	PTR	api.ocp4.example.com.
+```
 
 - Verify that both forward and reverse looks up are working
 ```        
