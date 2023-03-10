@@ -25,13 +25,13 @@ For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to t
 
 
   - Add the following to the forward zone db.example.com file
-  ```
+```
   api.ocp4	IN	A	10.1.10.201
   *.apps.ocp4	IN	A	10.1.10.202
-  ```
+```
   
   - Add the following to the reverse zone db.10.1.10.in-addr.arpa file
-  ```
+```
   api.ocp4	A	10.1.10.201
   *.apps.ocp4	A	10.1.10.202
   201	IN	PTR	api.ocp4.example.com.
@@ -49,7 +49,7 @@ api.ocp4.example.
 
 ### Optional - Create an ssh key for password-less ssh to the master node for debugging, etc.
 1. Create an ssh key 
- ```       
+```       
 $ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
 Generating public/private ed25519 key pair.
 Your identification has been saved in /home/pslucas/.ssh/ocp412.
@@ -60,7 +60,6 @@ The key's randomart image is:
 +--[ED25519 256]--+
 | ...             |
 +----[SHA256]-----+
-  
 ```   
 2. Start up the ssh-agent and add the new key to the ssh-agent. 
 ```
@@ -68,7 +67,7 @@ $ eval "$(ssh-agent -s)"
 Agent pid 2247442
 $ ssh-add ~/.ssh/ocp412
 Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
- ``` 
+``` 
   
  ### Get the OCP 4.7 installation software
  1. Login to Red HatGo to the Infrastructure Provider page on the Red Hat OpenShift Cluster Manager site and login -> https://cloud.redhat.com/openshift/install
