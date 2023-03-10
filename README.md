@@ -103,8 +103,25 @@ $ sudo update-ca-trust extract
  There is a known bug in OpenShift installer for 4.12 and you will have to generat the install-config.yaml first and the modify.  
  - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
  ```
- $ ./openshift-install create install-config --dir=ocp412
+ $ ./openshift-install create install-config --dir=ocp4
+? SSH Public Key /home/pslucas/.ssh/ocp412.pub
+? Platform vsphere
+? vCenter vsca01.example.com
+? Username administrator@vsphere.local
+? Password [? for help] *********
+INFO Connecting to vCenter vsca01.example.com     
+INFO Defaulting to only available datacenter: LabDatacenter 
+INFO Defaulting to only available cluster: LabCluster 
+? Default Datastore LabDatastore
+INFO Defaulting to only available network: VM Network 
+? Virtual IP Address for API 10.0.0.1
+? Virtual IP Address for Ingress 10.0.0.2
+? Base Domain example.com
+? Cluster Name ocp4
+? Pull Secret [? for help] ***************************************************************************************************
+INFO Install-Config created in: ocp4
  ```
+ 
  You will modify too sections in the install-configy.yaml file.  Under the networking section modify the machineNetwork.
  
  ```
@@ -129,8 +146,16 @@ Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
  ```
  Now run the installation with the create cluster option
   ```   
-$ ./openshift-install create cluster --dir=ocp4 --log-level=info
+$ ./openshift-install create cluster --dir ./ocp4 --log-level=info
+INFO Consuming Install Config from target directory 
+INFO Obtaining RHCOS image file from 'https://rhcos.mirror.openshift.com/art/storage/prod/streams/4.12/builds/412.86.202301311551-0/x86_64/rhcos-412.86.202301311551-0-vmware.x86_64.ova?sha256=' 
+INFO Creating infrastructure resources...         
+INFO Waiting up to 20m0s (until 4:55PM) for the Kubernetes API at https://api.ocp4.example.com:6443... 
+INFO API v1.25.4+a34b9e9 up                       
+INFO Waiting up to 30m0s (until 5:07PM) for bootstrapping to complete... 
  ``` 
+ While the installation is running you can to your vCenter client and see the bootstrap VM start up and then the control plane VMs starting up.
+ 
  
  9. The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
   
