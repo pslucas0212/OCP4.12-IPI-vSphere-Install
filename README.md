@@ -153,13 +153,21 @@ Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
  ```
  Now run the installation with the create cluster option
   ```   
-$ ./openshift-install create cluster --dir ./ocp4 --log-level=info
+$ $ ./openshift-install create cluster --dir ./ocp4 --log-level=info
 INFO Consuming Install Config from target directory 
 INFO Obtaining RHCOS image file from 'https://rhcos.mirror.openshift.com/art/storage/prod/streams/4.12/builds/412.86.202301311551-0/x86_64/rhcos-412.86.202301311551-0-vmware.x86_64.ova?sha256=' 
 INFO Creating infrastructure resources...         
 INFO Waiting up to 20m0s (until 4:55PM) for the Kubernetes API at https://api.ocp4.example.com:6443... 
 INFO API v1.25.4+a34b9e9 up                       
 INFO Waiting up to 30m0s (until 5:07PM) for bootstrapping to complete... 
+INFO Destroying the bootstrap resources...        
+INFO Waiting up to 40m0s (until 5:33PM) for the cluster at https://api.ocp4.example.com:6443 to initialize... 
+INFO Checking to see if there is a route at openshift-console/console... 
+INFO Install complete!                            
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/home/pslucas/ocp412/ocp4/auth/kubeconfig' 
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.ocp4.example.com 
+INFO Login to the console with user: "kubeadmin", and password: "SAxqE-nIMI5-FyZIJ-zBEjz" 
+INFO Time elapsed: 39m9s  
  ``` 
  While the installation is running you can to your vCenter client and see the bootstrap VM start up and then the control plane VMs starting up.
  
