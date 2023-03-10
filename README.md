@@ -78,7 +78,7 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  3. From the download page click the Download Installer button, click the Download Pull Secre button and click the Download command-line tools button.  Note that further down this page there is a button to download Red Hat Enterprise Linux CoreOS (RHCOS).  We will let the installation program grab that file for us.
  
  <img src="images/download.jpg" width="600"/>
- 4. I made a separate directory to run the installation for the OCP cluster and moved the openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
+ 4. I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move theta openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
 ```
 $ tar xvf openshift-install-linux.tar.gz
 ```
