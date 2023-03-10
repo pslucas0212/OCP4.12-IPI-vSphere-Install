@@ -14,7 +14,7 @@ For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RA
 
 ### Installation Pre-reqs:
 For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.
-- DNS service - For the installation you need to define two static IP address.  One for the cluster api access - api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
+- For the OCP 4.12 IPI you need to define two static IP address.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
 
 
  File Name | Location | Info
