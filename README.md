@@ -84,7 +84,7 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 $ tar xvf openshift-install-linux.tar.gz
 ```
 
- 5. We need your vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  To download the vCenter cerfiticate go to your vCenter homepage, click Download trusted root CA certificates link (see right hand side of the homepage).
+ 5. We need your vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
   
    <img src="images/certs.png" width="950"/>
  6. Unzip the download.zip file that contains the vCenter certs.  In the resutling certs folder you'll see three subfolders for linux, mac and windows.  You can use the "tree certs" command to see the files and file structure.
