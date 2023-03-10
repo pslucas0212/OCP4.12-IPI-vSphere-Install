@@ -151,7 +151,7 @@ INFO Defaulting to only available network: VM Network
 INFO Install-Config created in: ocp4
  ```
  
- - You will modify two sections in the install-configy.yaml file.  Under the networking section modify the cidr under the machineNetwork section.
+ - After creating the install-config.yaml file, you will modify two sections in the install-config.yaml file.  Under the networking section modify the cidr under the machineNetwork section.
  
  ```
  networking:
