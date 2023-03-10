@@ -107,7 +107,17 @@ $ ./openshift-install create cluster --dir=ocp47 --log-level=info
  ```
  $ ./openshift-install create install-config --dir=ocp412
  ```
- Lookf for the platform section in the install-config.yaml and modify both the apiVIPs and ingressVIPs IP addresses.
+ You will modify too sections in the install-configy.yaml file.  Under the networking section modify the machineNetwork.
+ 
+ ```
+ networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.1.10.0/24
+ ```
+Underr the platform section modify both the apiVIPs and ingressVIPs IP addresses.
  ```
  platform:
   vsphere:
