@@ -47,7 +47,7 @@ api.ocp4.example.
     
 - The DHCP service does not require any additional changes
 
-### Optional - Create an ssh key for password-less ssh to the master node for debugging, etc.
+### Optional - Create an ssh key for password-less ssh to the control-plane node for debugging, etc.
 1. Create an ssh key 
 ```       
 $ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
@@ -90,19 +90,33 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  
  ![Download OpenShift Installer](images/OCP05.png)
  
- - I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move theta openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
+ - I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move thet openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
 
 ```
 $ tar xvf openshift-install-linux.tar.gz
 ```
 
- 5. We need your vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
+- For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
   
-   <img src="images/certs.png" width="950"/>
- 6. Unzip the download.zip file that contains the vCenter certs.  In the resutling certs folder you'll see three subfolders for linux, mac and windows.  You can use the "tree certs" command to see the files and file structure.
   
-   <img src="images/treecertsv2.jpg" width="350"/>
- 7. Run the following commands to update your system trust.
+- Unzip the download.zip file that contains the vCenter certs.  In the certs folder you'll see three subfolders for linux, mac and windows.  You can use the "tree certs" command to see the files and file structure.
+  
+```
+$ tree certs
+certs
+├── lin
+│   ├── 77850363.0
+│   └── 77850363.r0
+├── mac
+│   ├── 77850363.0
+│   └── 77850363.r0
+└── win
+    ├── 77850363.0.crt
+    └── 77850363.r0.crl
+
+3 directories, 6 files
+```
+- Run the following commands to update your system trust.
  
 ``` 
 $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
@@ -110,10 +124,26 @@ $ sudo update-ca-trust extract
 ```  
   <img src="images/certupdate.jpg" width="700"/>
   
-  8. We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installtion artifacts directory ocp45.  Run the following installation command.
+- We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installation artifacts directory ocp.  
 
- There is a known bug in OpenShift installer for 4.12 and you will have to generat the install-config.yaml first and the modify.  
+ There is a known bug in the OpenShift installer for 4.12 and you will have to generate the install-config.yaml first and then modify it to run the installation.  
  - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
+ 
+- The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
+  
+   Here is the list of questions the installer will ask you:
+      1. SSH Public Key
+      2. Platform - chose vSphere
+      3. vCenter - provide the url to your vCenter - vsca01.exanple.com
+      4. Username - the username for your vCenter - administator@vsphere.local
+      5. Password - the password for your vCenter user - *******
+      6. Default Datastore - chose the vSphere datastore where the VMs will be stored
+        - You may also be prompted for a vSphere network if you have more than one option available to you
+      7. Virtual IP address for API - this is the API IP address we perviously add to our DNS service - 10.1.10.201
+      8. Viftual IP address for Ingress - this is the ingress IP address we perviously add to our DNS service - 10.1.10.202
+      9. Base Domain - example.com
+      10. Cluster Name - ocp4
+      11. Pull Secret - Copy and past the pull secret you downloaded in step 3.
  ```
  $ ./openshift-install create install-config --dir=ocp4
 ? SSH Public Key /home/pslucas/.ssh/ocp412.pub
@@ -134,7 +164,7 @@ INFO Defaulting to only available network: VM Network
 INFO Install-Config created in: ocp4
  ```
  
- You will modify too sections in the install-configy.yaml file.  Under the networking section modify the machineNetwork.
+ - You will modify two sections in the install-configy.yaml file.  Under the networking section modify the cidr under the machineNetwork section.
  
  ```
  networking:
@@ -144,7 +174,7 @@ INFO Install-Config created in: ocp4
   machineNetwork:
   - cidr: 10.1.10.0/24
  ```
-Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
+- Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
  ```
  platform:
   vsphere:
@@ -156,8 +186,8 @@ Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
     ingressVIPs:
     - 10.1.10.202
  ```
- Now run the installation with the create cluster option
-  ```   
+- Now run the installation with the create cluster option.
+ ```   
 $ $ ./openshift-install create cluster --dir ./ocp4 --log-level=info
 INFO Consuming Install Config from target directory 
 INFO Obtaining RHCOS image file from 'https://rhcos.mirror.openshift.com/art/storage/prod/streams/4.12/builds/412.86.202301311551-0/x86_64/rhcos-412.86.202301311551-0-vmware.x86_64.ova?sha256=' 
@@ -174,31 +204,9 @@ INFO Access the OpenShift web-console here: https://console-openshift-console.ap
 INFO Login to the console with user: "kubeadmin", and password: "SAxqE-nIMI5-FyZIJ-zBEjz" 
 INFO Time elapsed: 39m9s  
  ``` 
- While the installation is running you can to your vCenter client and see the bootstrap VM start up and then the control plane VMs starting up.
+ While the installation is running you view the bootstrap VM creating the control-plane VMs and the worker VMs.
  
- 
- 9. The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
-  
-  
-    Here is the list of questions the installer will ask you:
-      1. SSH Public Key
-      2. Platform - chose vSphere
-      3. vCenter - provide the url to your vCenter - vsca01.exanple.com
-      4. Username - the username for your vCenter - administator@vsphere.local
-      5. Password - the password for your vCenter user - *******
-      6. Default Datastore - chose the vSphere datastore where the VMs will be stored
-        - You may also be prompted for a vSphere network if you have more than one option available to you
-      7. Virtual IP address for API - this is the API IP address we perviously add to our DNS service - 10.1.10.201
-      8. Viftual IP address for Ingress - this is the ingress IP address we perviously add to our DNS service - 10.1.10.202
-      9. Base Domain - example.com
-      10. Cluster Name - ocp4
-      11. Pull Secret - Copy and past the pull secret you downloaded in step 3.
-      12. Hit the enter key to start the install
-     
-
-  <img src="images/install01.png" width="800"/>
-    
-  10. Wait for the install to complete.  You'll see a series of messages like those below as the install progresses and if you watch the vCenter admin screen you'll see images created, rebooted, etc. as the cluster is configured and started.  This installation in my lab took about 38 minutes.
+- Wait for the install to complete.  You'll see a series of messages like those below as the install progresses.  This installation in my lab took about 38 minutes.
 
  ``` 
 INFO Obtaining RHCOS image file from 'https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.5/45.82.202007141718-0/x86_64/rhcos-  45.82.202007141718-0-vmware.x86_64.ova?sha256=9c977abeba0aeedc222ae9dd3d27e659bb5c959c9fd6b199f940d16de07ded4e' 
@@ -216,7 +224,8 @@ INFO Access the OpenShift web-console here: https://console-openshift-console.ap
 INFO Login to the console with user: "kubeadmin", and password: “K**************************98” 
 INFO Time elapsed: 37m47s      
 ```
-11. You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
+
+- You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
