@@ -99,9 +99,7 @@ $ sudo update-ca-trust extract
   <img src="images/certupdate.jpg" width="700"/>
   
   8. We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installtion artifacts directory ocp45.  Run the following installation command.
- ```   
-$ ./openshift-install create cluster --dir=ocp47 --log-level=info
- ``` 
+
  There is a known bug in OpenShift installer for 4.12 and you will have to generat the install-config.yaml first and the modify.  
  - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
  ```
@@ -117,7 +115,7 @@ $ ./openshift-install create cluster --dir=ocp47 --log-level=info
   machineNetwork:
   - cidr: 10.1.10.0/24
  ```
-Underr the platform section modify both the apiVIPs and ingressVIPs IP addresses.
+Under the platform section modify both the apiVIPs and ingressVIPs IP addresses.
  ```
  platform:
   vsphere:
@@ -129,6 +127,11 @@ Underr the platform section modify both the apiVIPs and ingressVIPs IP addresses
     ingressVIPs:
     - 10.1.10.202
  ```
+ Now run the installation with the create cluster option
+  ```   
+$ ./openshift-install create cluster --dir=ocp4 --log-level=info
+ ``` 
+ 
  9. The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.
   
   
