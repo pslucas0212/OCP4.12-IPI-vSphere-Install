@@ -81,11 +81,16 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 - On the Clusters > Cluster Type page, click the Datacenter tab and scroll down on the screen and click the vSphere link
 
 ![Click vSphere link](images/OCP03.png) 
+
+- On the Clusters > Cluster Type > VMWare vSphere page, click on the Local Agent-based tile
+
+![Click Local Agent-based tile](images/OCP04.png) 
  
- 3. From the download page click the Download Installer button, click the Download Pull Secre button and click the Download command-line tools button.  Note that further down this page there is a button to download Red Hat Enterprise Linux CoreOS (RHCOS).  We will let the installation program grab that file for us.
+- On the Clusters > Cluster Type > VMWare vSphere page > Local Agent-based install page choose the operating system where you will run the OpenShift installer (Linux or Mac).  Choose the operating system for the Command line interface (Linux, Mac, or Windows).  Download the OpenShift Installer, the Pull secret and the Command line interface. 
  
- <img src="images/download.jpg" width="600"/>
- 4. I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move theta openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
+ ![Download OpenShift Installer](images/OCP05.png)
+ 
+ - I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move theta openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
 
 ```
 $ tar xvf openshift-install-linux.tar.gz
