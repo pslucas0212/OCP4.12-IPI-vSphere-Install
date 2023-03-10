@@ -122,7 +122,6 @@ certs
 $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
 $ sudo update-ca-trust extract
 ```  
-  <img src="images/certupdate.jpg" width="700"/>
   
 - We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installation artifacts directory ocp.  
 
