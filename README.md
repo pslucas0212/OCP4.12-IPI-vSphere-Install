@@ -70,9 +70,9 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 ``` 
   
  ### Get the OCP 4.12 installation software
- 1. Login to Red HatGo to the Infrastructure Provider page on the Red Hat OpenShift Cluster Manager site and login -> https://cloud.redhat.com/openshift/install
+ - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  Choose ClustersGo to the Infrastructure Provider page on the Red Hat OpenShift Cluster Manager site and login -> https://cloud.redhat.com/openshift/install
 
-![Click Login button](/images/ocp4-01.jpeg)  
+![Click Login button](/images/ocp4-01.jpg)  
   
  2. After you logon, chose the vSphere tile
  
