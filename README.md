@@ -13,7 +13,8 @@ For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RA
 ## Installation Steps
 
 ### Installation Pre-reqs:
-For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.
+For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.  My DHCP server is setup to dynmically update the DNS services with hostname and address.
+
 - For the OCP 4.12 IPI you need to define two static IP address.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
 
 
@@ -42,7 +43,7 @@ For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to t
 # dig -x 10.1.10.201
 ```      
     
-- DHCP service - no particular notes needed here
+- The DHCP service does not require any additional changes
 
 ### Optional - Create an ssh key for password-less ssh to the master node for debugging, etc.
 1. Create an ssh key 
