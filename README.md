@@ -1,4 +1,4 @@
-# OpenShift 4.7 vSphere Installer Provisioned Infrastructure Tutorial
+# OpenShift 4.12 vSphere Installer Provisioned Infrastructure Tutorial
 
 In progress on 10 March 2023
 
