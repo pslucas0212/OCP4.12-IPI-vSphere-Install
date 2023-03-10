@@ -72,15 +72,15 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  ### Get the OCP 4.12 installation software
  - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  On the Red Hat Hybrid Cloud Console page, click the Openshift side tab
 
-![Choose OpenShift Tab](/images/ocp01.png)  
+![Choose OpenShift Tab](images/OCP01.png)  
   
 - On the Openshift page of the Red Hat Hybrid Console page, choose the Clusters tab on the side and the click the blue Create Cluster button
 
-![Create Cluster button](/images/ocp02.png)  
+![Create Cluster button](images/OCP02.png)  
 
 - On the Clusters > Cluster Type page, click the Datacenter tab and scroll down on the screen and click the vSphere link
 
-![Click vSphere link](/images/ocp03.png) 
+![Click vSphere link](images/OCP03.png) 
  
  3. From the download page click the Download Installer button, click the Download Pull Secre button and click the Download command-line tools button.  Note that further down this page there is a button to download Red Hat Enterprise Linux CoreOS (RHCOS).  We will let the installation program grab that file for us.
  
