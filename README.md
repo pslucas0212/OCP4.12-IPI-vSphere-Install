@@ -39,8 +39,10 @@ For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to t
 
 - Verify that both forward and reverse looks up are working
 ```        
-# dig api.ocp4.example.com
-# dig -x 10.1.10.201
+# dig api.ocp4.example.com +short
+10.1.10.201
+# dig -x 10.1.10.201 +short
+api.ocp4.example.
 ```      
     
 - The DHCP service does not require any additional changes
