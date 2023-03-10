@@ -50,19 +50,24 @@ api.ocp4.example.
 ### Optional - Create an ssh key for password-less ssh to the master node for debugging, etc.
 1. Create an ssh key 
  ```       
-$ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp47
-        
-[pslucas@ns02 ocp47install]$ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp47
-Generating public/private ed25519 key pair. 
-Your identification has been saved in /home/pslucas/.ssh/ocp47.
-Your public key has been saved in /home/pslucas/.ssh/ocp47.pub.
-The key fingerprint is: ...
+$ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
+Generating public/private ed25519 key pair.
+Your identification has been saved in /home/pslucas/.ssh/ocp412.
+Your public key has been saved in /home/pslucas/.ssh/ocp412.pub.
+The key fingerprint is:
+SHA256:8Md...ozN3Rcg pslucas@ns02.example.com
+The key's randomart image is:
++--[ED25519 256]--+
+| ...             |
++----[SHA256]-----+
   
 ```   
 2. Start up the ssh-agent and add the new key to the ssh-agent. 
 ```
 $ eval "$(ssh-agent -s)"
-$ ssh-add ~/.ssh/ocp47
+Agent pid 2247442
+$ ssh-add ~/.ssh/ocp412
+Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  ``` 
   
  ### Get the OCP 4.7 installation software
