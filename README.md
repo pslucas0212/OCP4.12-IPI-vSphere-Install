@@ -173,7 +173,8 @@ INFO Install-Config created in: ocp4
     ingressVIPs:
     - 10.1.10.202
  ```
-- Now run the installation with the create cluster option.
+- Now run the installation with the create cluster option. You'll see a series of messages like those below as the install progresses.  This installation in my lab took about 39 minutes.
+- While the installation is running you can view the bootstrap VM creating the control-plane VMs and then the worker VMs in the vSphere client.
  ```   
 $ $ ./openshift-install create cluster --dir ./ocp4 --log-level=info
 INFO Consuming Install Config from target directory 
@@ -191,26 +192,14 @@ INFO Access the OpenShift web-console here: https://console-openshift-console.ap
 INFO Login to the console with user: "kubeadmin", and password: "SAxqE-nIMI5-FyZIJ-zBEjz" 
 INFO Time elapsed: 39m9s  
  ``` 
- While the installation is running you view the bootstrap VM creating the control-plane VMs and the worker VMs.
- 
-- Wait for the install to complete.  You'll see a series of messages like those below as the install progresses.  This installation in my lab took about 38 minutes.
 
- ``` 
-INFO Obtaining RHCOS image file from 'https://releases-art-rhcos.svc.ci.openshift.org/art/storage/releases/rhcos-4.5/45.82.202007141718-0/x86_64/rhcos-  45.82.202007141718-0-vmware.x86_64.ova?sha256=9c977abeba0aeedc222ae9dd3d27e659bb5c959c9fd6b199f940d16de07ded4e' 
-INFO The file was found in cache: /home/pslucas/.cache/openshift-installer/image_cache/187f73af432c837eaa23361023b1656c. Reusing... 
-INFO Creating infrastructure resources...         
-INFO Waiting up to 20m0s for the Kubernetes API at https://api.ocp4.example.com:6443... 
-INFO API v1.18.3+3107688 up                     
-INFO Waiting up to 40m0s for bootstrapping to 
-INFO Waiting up to 30m0s for the cluster at https://api.ocp4.example.com:6443 to initialize... *
-W0723 17:47:56.542835   31492 reflector.go:326] k8s.io/client-go/tools/watch/informerwatcher.go:146: watch of *v1.ClusterVersion ended with: very short watch: k8s.io/client-go/tools/watch/informerwatcher.go:146: Unexpected watch close - watch lasted less than a second and no items received
-INFO Waiting up to 10m0s for the openshift-console route to be created...
-INFO Install complete!                           
-INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/home/pslucas/ocp45install/ocp45/auth/kubeconfig' 
-INFO Access the OpenShift web-console here: https://console-openshift-console.apps.ocp4.example.com
-INFO Login to the console with user: "kubeadmin", and password: “K**************************98” 
-INFO Time elapsed: 37m47s      
-```
+- You can now log into your newly created OpenShift cluster using kubeadmin and the password created during the installation.
+![Login to OpenShift](images/OCP06.png)
+
+- You will now be at the Home page of your OpenShift cluster.  
+
+![OpenShift Cluster Home](images/OCP07.png)
+
 
 - You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
 
