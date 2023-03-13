@@ -310,6 +310,17 @@ group.user.openshift.io/developers created
 $ oc adm groups add-users developers developer
 group.user.openshift.io/developers added: "developer"
 ```
+- Quick side note.  You can check who you are logged in as with whomai command.
+```
+$ oc whoami
+admin
+
+```
+
+- We want developers to be able to create and delete project related resources.  We give the developers group edit capability.
+```
+$ oc policy add-role-to-group edit developers
+```
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
