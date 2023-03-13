@@ -242,21 +242,54 @@ Using project "default".
 Welcome! See 'oc help' to get started.
 ```
 ### Let's set up a couple of users
-- Let's create a temporary htpasswd autentication file and some users to it.  blah, blah, blah best practice don't use kubeadmin
+- We don't recommend using kubeadmin on a day-to-day basis for adminstering your OpenShift cluster, so we create a couple of users in this tutorial to start to familiarize with the process for setting users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd autentication file and add two users to it. 
 ```
 $ touch /tmp/cluster-ids
-$ htpasswd -B -b /tmp/cluster-ids admin Passw0rd!
+$ htpasswd -B -b /tmp/cluster-ids admin xxxxxxxx
 Adding password for user admin
-$ htpasswd -B -b /tmp/cluster-ids developer Passw0rd!
+$ htpasswd -B -b /tmp/cluster-ids developer xxxxxxxx
 Adding password for user developer
-``
+```
 
-- creat secret ...
+- Next we will create a secret from the htpasswe file.
 ```
 $ oc create secret generic cluster-users --from-file htpasswd=/tmp/cluster-ids -n openshift-config
 secret/cluster-users created
 ```
 
+- We will now update the OAuth resource on our cluster add the HTPasswd identity provider defintion to the clusters identity provider list.  Export the OAuth resource to a yaml file
+```
+oc get oauth cluster -o yaml > /tmp/oauth.yaml
+```
+-  Update the spec section of the OAuth.yaml file.  After updating the file we will updat our OpenShift cluster with new yaml file.
+```
+spec: 
+  identityProviders:
+  - name: cluster-users
+    mappingMethod: claim
+    type HTPasswd
+    htpasswd:
+    fileData:
+      name: cluster-users
+```
+```
+$ oc replace -f /tmp/oauth.yaml 
+oauth.config.openshift.io/cluster replaced
+```
+- We will make assign the cluster admin role to the admin user.  You can ignore the error as the admin doesn't exit until you log in the first time as admin
+```
+$ oc adm policy add-cluster-role-to-user cluster-admin admin
+Warning: User 'admin' not found
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "admin"
+```
+-  We will now need to wait until the oauth-openshift pods in the openshift-authetication space are restarted
+```
+$ oc get pods -n openshift-authentication
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-64756f8997-h6ts8   1/1     Running   0          2m2s
+oauth-openshift-64756f8997-hs6cl   1/1     Running   0          94s
+oauth-openshift-64756f8997-z4mxz   1/1     Running   0          2m30s
+```
 
 
 
