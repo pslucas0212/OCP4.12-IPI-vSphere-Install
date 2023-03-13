@@ -290,8 +290,26 @@ oauth-openshift-64756f8997-h6ts8   1/1     Running   0          2m2s
 oauth-openshift-64756f8997-hs6cl   1/1     Running   0          94s
 oauth-openshift-64756f8997-z4mxz   1/1     Running   0          2m30s
 ```
+- We can now login to our OpenShift cluster as the admin role to create a group and assign group cluster roles for the developer user
+```
+$ oc login -u admin -p xxxxxxxx
+WARNING: Using insecure TLS client config. Setting this option is not supported!
 
+Login successful.
 
+You have access to 67 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+```
+
+- Let's create a group for the developers and the developer user to the group
+
+```
+$ oc adm groups new developers
+group.user.openshift.io/developers created
+$ oc adm groups add-users developers developer
+group.user.openshift.io/developers added: "developer"
+```
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
