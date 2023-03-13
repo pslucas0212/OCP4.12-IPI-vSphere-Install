@@ -219,4 +219,12 @@ You have the choice of installating the OpenShift Command Line interface for Lin
 
 ![Mac Settings Panel](images/OCP08.png)
 
+- We need the Kubeconfig file from our installation we ran from our linux server
+```
+ % scp -r pslucas@ns02.example.com:/home/pslucas/ocp412/ocp4/auth/ ocp/auth/
+pslucas@ns02.example.com's password: 
+kubeconfig                                                                                  100%   12KB   5.4MB/s   00:00    
+kubeadmin-password                                                                          100%   23    14.1KB/s   00:00
+```
+
 
