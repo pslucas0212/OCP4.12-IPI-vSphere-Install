@@ -322,5 +322,33 @@ admin
 $ oc policy add-role-to-group edit developers
 ```
 
+- Currently the developers group has the ability to create new projects.  We can remove that capability from the group if that makes sense for you organization.  Let's login to the OpenShift cluster as a developer and create a new project
+```
+$ oc login -u developer -p Passw0rd!
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have one project on this server: "default"
+
+Using project "default".
+$ oc new-project my-first-app
+Now using project "my-first-app" on server "https://api.ocp4.example.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
+```
+
+- Note we can see the current project with the oc project command.
+```
+$ oc project
+Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
+```
+
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
