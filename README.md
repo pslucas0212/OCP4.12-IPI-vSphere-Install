@@ -324,7 +324,7 @@ $ oc policy add-role-to-group edit developers
 
 - Currently the developers group has the ability to create new projects.  We can remove that capability from the group if that makes sense for you organization.  Let's login to the OpenShift cluster as a developer and create a new project
 ```
-$ oc login -u developer -p Passw0rd!
+$ oc login -u developer -p xxxxxxxx
 WARNING: Using insecure TLS client config. Setting this option is not supported!
 
 Login successful.
