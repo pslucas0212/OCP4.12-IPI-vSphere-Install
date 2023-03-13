@@ -205,26 +205,42 @@ INFO Time elapsed: 39m9s
 
 ### Install the Command Line Interface
  
-You have the choice of installating the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line with my Mac
+You have the choice of installating the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line on the Red Hat Enterprise Linux server...
 
-- After downloading the command line interface file from the [Red Hat Hybrid Console](https://console.redhat.com/openshift/install/vsphere/agent-based), untar the file and place and move it to the mv
+- Untar the OpenShift client
+```
+$ tar xvf openshift-client-linux.tar.gz 
+README.md
+oc
+kubectl
+```
+- Move the oc and kubectl files to the /usr/local/bin directory
+```
+$ sudo mv oc /usr/local/bin
+[sudo] password for pslucas: 
+sudo mv kubectl /usr/local/bin
+```
+
+- Export the Kubeconfig file.  Be sure to permanently add the export to your startup.
+```
+export KUBECONFIG=/home/pslucas/ocp412/ocp4/auth/kubeconfig
+```
+- Now you can test your login to your OpenShift cluster
+```
+$ oc login -u kubeadmin -p SAxqE-nIMI5-FyZIJ-zBEjz https://api.ocp4.example.com:6443
+The server uses a certificate signed by an unknown authority.
+You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+Use insecure connections? (y/n): y
+
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 67 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+Welcome! See 'oc help' to get started.
+```
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
-
-```
-%sudo mv Downloads/openshift-client-mac/* /usr/local/bin
-```
-- On Mac you may be asked to verify the develper the first time you run the client.  To verify the developer on the Mac, go to Settings | Security & Privacy | General.  Next click the padlock icon to unlock settings then click the Allow Anyway button. Lock the padlock and close the Settngs panel
-
-![Mac Settings Panel](images/OCP08.png)
-
-- We need the Kubeconfig file from our installation we ran from our linux server
-```
- % scp -r pslucas@ns02.example.com:/home/pslucas/ocp412/ocp4/auth/ ocp/
-pslucas@ns02.example.com's password: 
-kubeconfig                                                                                  100%   12KB   5.4MB/s   00:00    
-kubeadmin-password                                                                          100%   23    14.1KB/s   00:00
-```
-
-
