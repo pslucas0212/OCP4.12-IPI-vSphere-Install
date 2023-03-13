@@ -227,7 +227,7 @@ export KUBECONFIG=/home/pslucas/ocp412/ocp4/auth/kubeconfig
 ```
 - Now you can test your login to your OpenShift cluster
 ```
-$ oc login -u kubeadmin -p SAxqE-nIMI5-FyZIJ-zBEjz https://api.ocp4.example.com:6443
+$ oc login -u kubeadmin -p SAxqE-...-zBEjz https://api.ocp4.example.com:6443
 The server uses a certificate signed by an unknown authority.
 You can bypass the certificate check, but any data you send to the server could be intercepted by others.
 Use insecure connections? (y/n): y
