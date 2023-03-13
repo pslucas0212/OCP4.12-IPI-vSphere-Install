@@ -189,7 +189,7 @@ INFO Checking to see if there is a route at openshift-console/console...
 INFO Install complete!                            
 INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/home/pslucas/ocp412/ocp4/auth/kubeconfig' 
 INFO Access the OpenShift web-console here: https://console-openshift-console.apps.ocp4.example.com 
-INFO Login to the console with user: "kubeadmin", and password: "SAxqE-nIMI5-FyZIJ-zBEjz" 
+INFO Login to the console with user: "kubeadmin", and password: "SAxqE-...-zBEjz" 
 INFO Time elapsed: 39m9s  
  ``` 
 
