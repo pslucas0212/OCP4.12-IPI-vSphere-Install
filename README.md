@@ -241,6 +241,10 @@ You have access to 67 projects, the list has been suppressed. You can list all p
 Using project "default".
 Welcome! See 'oc help' to get started.
 ```
+### Let's set up a couple of users
+- Let's create a temporary htpasswd autentication file and some users to it.
+```
+$ touch /tmp/cluster-ids
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
