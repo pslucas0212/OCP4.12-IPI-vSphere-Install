@@ -350,5 +350,10 @@ $ oc project
 Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ```
 
+### Inastalling a simple test application
+- Let's now deploy a simple test applicaition via the admin console to verify that the cluster is working.  First login to the admin console
+
+
+
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
