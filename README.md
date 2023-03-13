@@ -203,5 +203,20 @@ INFO Time elapsed: 39m9s
 
 - You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
 
+### Install the Command Line Interface
+ 
+You have the choice of installating the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line with my Mac
+
+- After downloading the command line interface file from the [Red Hat Hybrid Console](https://console.redhat.com/openshift/install/vsphere/agent-based), untar the file and place and move it to the mv
+
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
+
+```
+%sudo mv Downloads/openshift-client-mac/* /usr/local/bin
+```
+- On Mac you may be asked to verify the develper the first time you run the client.  To verify the developer on the Mac, go to Settings | Security & Privacy | General.  Next click the padlock icon to unlock settings then click the Allow Anyway button. Lock the padlock and close the Settngs panel
+
+![Mac Settings Panel](images/OCP08.png)
+
+
