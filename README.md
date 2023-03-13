@@ -242,9 +242,23 @@ Using project "default".
 Welcome! See 'oc help' to get started.
 ```
 ### Let's set up a couple of users
-- Let's create a temporary htpasswd autentication file and some users to it.
+- Let's create a temporary htpasswd autentication file and some users to it.  blah, blah, blah best practice don't use kubeadmin
 ```
 $ touch /tmp/cluster-ids
+$ htpasswd -B -b /tmp/cluster-ids admin Passw0rd!
+Adding password for user admin
+$ htpasswd -B -b /tmp/cluster-ids developer Passw0rd!
+Adding password for user developer
+``
+
+- creat secret ...
+```
+$ oc create secret generic cluster-users --from-file htpasswd=/tmp/cluster-ids -n openshift-config
+secret/cluster-users created
+```
+
+
+
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
