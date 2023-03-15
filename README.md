@@ -307,8 +307,8 @@ spec:
     mappingMethod: claim
     type HTPasswd
     htpasswd:
-    fileData:
-      name: cluster-users
+      fileData:
+        name: cluster-users
 ```
 ```
 $ oc replace -f /tmp/oauth.yaml 
