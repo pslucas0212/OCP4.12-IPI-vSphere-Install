@@ -1,6 +1,6 @@
 # OpenShift 4.12 vSphere Installer Provisioned Infrastructure Tutorial
 
-In progress on 13 March 2023
+In progress on 15 March 2023
 
 
 The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
@@ -47,7 +47,7 @@ api.ocp4.example.
     
 - The DHCP service does not require any additional changes
 
-### Optional - Create an ssh key for password-less ssh to the control-plane node for debugging, etc.
+### Create an ssh key for authtenication to the control-plane node.
 1. Create an ssh key 
 ```       
 % ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
