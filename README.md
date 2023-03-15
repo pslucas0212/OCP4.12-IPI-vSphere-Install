@@ -67,6 +67,9 @@ The key's randomart image is:
 ```
 % eval "$(ssh-agent -s)"
 Agent pid 24014
+ % sudo chmod 600 /Users/palucas/.ssh/ocp412.pub
+ % ssh-add /Users/palucas/.ssh/ocp412    
+Identity added: /Users/palucas/.ssh/ocp412 (palucas@palucas-mac)
 ``` 
   
  ### Get the OCP 4.12 installation software
