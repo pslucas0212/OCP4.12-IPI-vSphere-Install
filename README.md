@@ -243,13 +243,9 @@ Using project "default".
 Welcome! See 'oc help' to get started.
 ```
 
-### Create local registery....
+### Create local registery...
 
-```
-$ oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'
-config.imageregistry.operator.openshift.io/cluster patched
-```
-[Configuring Registry Storage for vSphere](https://docs.openshift.com/container-platform/4.12/registry/configuring_registry_storage/configuring-registry-storage-vsphere.html)
+
 
 ### Let's set up a couple of users
 - We don't recommend using kubeadmin on a day-to-day basis for adminstering your OpenShift cluster, so we create a couple of users in this tutorial to start to familiarize with the process for setting users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd autentication file and add two users to it. 
