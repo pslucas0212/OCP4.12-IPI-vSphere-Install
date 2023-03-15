@@ -305,7 +305,7 @@ spec:
   identityProviders:
   - name: cluster-users
     mappingMethod: claim
-    type HTPasswd
+    type: HTPasswd
     htpasswd:
       fileData:
         name: cluster-users
