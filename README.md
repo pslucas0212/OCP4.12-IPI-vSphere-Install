@@ -114,7 +114,7 @@ tar xvf openshift-install-mac.tar
 
 - Add the cert the System | System Keychains and right click the CA to update the trust.  Close the Keychain Access utility.
 
-![Update Trust]((images/finder03.png)
+![Update Trust](images/finder03.png)
 
 - In the certs folder you'll see three subfolders for linux, mac and windows.  With a Linuxx client you can use the "tree certs" command to see the files and file structure.
   
