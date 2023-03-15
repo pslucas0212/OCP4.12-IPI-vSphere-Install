@@ -55,7 +55,7 @@ Generating public/private ed25519 key pair.
 Your identification has been saved in /home/pslucas/.ssh/ocp412.
 Your public key has been saved in /home/pslucas/.ssh/ocp412.pub.
 The key fingerprint is:
-SHA256:qX0W6brX1kge1slks4wqrUhBE2l4uKBhS1z0EnFQAZU pslucas@ns02.example.com
+SHA256:qX0W...AZU pslucas@ns02.example.com
 The key's randomart image is:
 +--[ED25519 256]--+
 |. oB*B+.         |
