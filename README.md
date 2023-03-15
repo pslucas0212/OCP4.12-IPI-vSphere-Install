@@ -108,7 +108,7 @@ tar xvf openshift-install-mac.tar
 - On a Mac the download.zip file will automatically unzip in the Downloads directory.  You can see the certs folder structure in the Mac finder.
 ![Certs folders](images/finder01.png)
 
-- Right click on any of the cert in the Win folcer ending .0.cert and open with the Mac Keychain Access utility.
+- Right click on the cert in the Win folder ending **.0.cert** and open with the Mac Keychain Access utility.
 
 ![Open Key Chain Access](images/finder02.png)
 
