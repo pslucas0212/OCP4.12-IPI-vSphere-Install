@@ -50,26 +50,26 @@ api.ocp4.example.
 ### Create an ssh key for authtenication to the control-plane node.
 1. Create an ssh key 
 ```       
-% ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
+$ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
 Generating public/private ed25519 key pair.
-Your identification has been saved in /Users/palucas/.ssh/ocp412
-Your public key has been saved in /Users/palucas/.ssh/ocp412.pub
+Your identification has been saved in /home/pslucas/.ssh/ocp412.
+Your public key has been saved in /home/pslucas/.ssh/ocp412.pub.
 The key fingerprint is:
-SHA256:IKxvy3...68Wiy4 palucas@palucas-mac
+SHA256:qX0W6brX1kge1slks4wqrUhBE2l4uKBhS1z0EnFQAZU pslucas@ns02.example.com
 The key's randomart image is:
 +--[ED25519 256]--+
-|           .*o+oB|
-|     ...         |
-|    o .oo..      |
+|. oB*B+.         |
+|       ...       |
+|      . += .     |
 +----[SHA256]-----+
+
 ```   
 2. Start up the ssh-agent and add the new key to the ssh-agent. 
 ```
-% eval "$(ssh-agent -s)"
-Agent pid 24014
- % sudo chmod 600 /Users/palucas/.ssh/ocp412.pub
- % ssh-add /Users/palucas/.ssh/ocp412    
-Identity added: /Users/palucas/.ssh/ocp412 (palucas@palucas-mac)
+$ eval "$(ssh-agent -s)"
+Agent pid 2383424
+$ ssh-add /home/pslucas/.ssh/ocp412
+Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 ``` 
   
  ### Get the OCP 4.12 installation software
@@ -102,21 +102,7 @@ tar xvf openshift-install-mac.tar
 - For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
   
   
-- Unzip the download.zip file that contains the vCenter certs.  
- 
- 
-- On a Mac the download.zip file will automatically unzip in the Downloads directory.  You can see the certs folder structure in the Mac finder.
-![Certs folders](images/finder01.png)
-
-- Right click on the cert in the Win folder ending **.0.cert** and open with the Mac Keychain Access utility.
-
-![Open Key Chain Access](images/finder02.png)
-
-- Add the cert the System | System Keychains and right click the CA to update the **When using this certificate:** to Always Trust for the dropdown choices.  The will update the trust.  Close the Keychain Access utility.
-
-![Update Trust](images/finder03.png)
-
-- With a Linux client you can use the "tree certs" command to see the files and file structure.
+- Unzip the download.zip file that contains the vCenter certs.  With a Linux client you can use the "tree certs" command to see the files and file structure.
   
 ```
 $ tree certs
@@ -133,7 +119,7 @@ certs
 
 3 directories, 6 files
 ```
-- If you are going to run the install from Linux use the following commands to update your system trust.
+- Use the following commands to update your system trust.
  
 ``` 
 $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
