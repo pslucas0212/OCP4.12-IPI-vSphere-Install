@@ -50,23 +50,23 @@ api.ocp4.example.
 ### Optional - Create an ssh key for password-less ssh to the control-plane node for debugging, etc.
 1. Create an ssh key 
 ```       
-$ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
+% ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
 Generating public/private ed25519 key pair.
-Your identification has been saved in /home/pslucas/.ssh/ocp412.
-Your public key has been saved in /home/pslucas/.ssh/ocp412.pub.
+Your identification has been saved in /Users/palucas/.ssh/ocp412
+Your public key has been saved in /Users/palucas/.ssh/ocp412.pub
 The key fingerprint is:
-SHA256:8Md...ozN3Rcg pslucas@ns02.example.com
+SHA256:IKxvy3...68Wiy4 palucas@palucas-mac
 The key's randomart image is:
 +--[ED25519 256]--+
-| ...             |
+|           .*o+oB|
+|     ...         |
+|    o .oo..      |
 +----[SHA256]-----+
 ```   
 2. Start up the ssh-agent and add the new key to the ssh-agent. 
 ```
-$ eval "$(ssh-agent -s)"
-Agent pid 2247442
-$ ssh-add ~/.ssh/ocp412
-Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
+% eval "$(ssh-agent -s)"
+Agent pid 24014
 ``` 
   
  ### Get the OCP 4.12 installation software
