@@ -96,7 +96,7 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  - I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move thet openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
 
 ```
-tar xvf openshift-install-mac.tar
+$ tar xvf openshift-install-linux.tar.gz
 ```
 
 - For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
@@ -212,15 +212,14 @@ You have the choice of installating the OpenShift Command Line interface for Lin
 
 - Untar the OpenShift client
 ```
-% tar xvf openshift-client-mac.tar 
-x README.md
-x oc
-x kubectl
+$ tar xvf openshift-client-linux.tar.gz 
+README.md
+oc
 ```
 - Move the oc and kubectl files to the /usr/local/bin directory
 ```
-% sudo mv oc /usr/local/bin
-% sudo mv kubectl /usr/local/bin 
+$ sudo mv oc /usr/local/bin
+$ sudo mv kubectl /usr/local/bin 
 ```
 
 - Export the Kubeconfig file.  Be sure to permanently add the export to your startup.
