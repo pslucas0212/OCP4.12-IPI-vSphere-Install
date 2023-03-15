@@ -243,9 +243,41 @@ Using project "default".
 Welcome! See 'oc help' to get started.
 ```
 
-### Create local registery...
+### Create a local image registery
 
+- During the installation, OpenShift skips creating an internal image registry since it isn't aware of shareable object storage that you might be using with a quick installation like in this example.  For our openshift cluster, we will use the availabe VMWare datastore to define storage for our cluster.
 
+- We will enable the registry by first creating a persistent volume claim via the command line
+```
+$ cat <<EOF >> image-registry-pvc.yaml
+> apiVersion: v1
+> kind: PersistentVolumeClaim
+> metadata:
+>   name: image-registry-storage
+>   namespace: openshift-image-registry
+> spec:
+>   accessModes:
+>     - ReadWriteOnce
+>   resources:
+>     requests:
+>       storage: 100Gi
+>   storageClassName: 'thin'
+> EOF
+$ oc apply -f image-registry-pvc.yaml 
+persistentvolumeclaim/image-registry-storage created
+```
+
+- Next we will patch the image registry operatory config
+```
+$ oc apply -f image-registry-pvc.yaml 
+persistentvolumeclaim/image-registry-storage created
+```
+ - Wait a couple of minutes for the image registry pod to start.  And we are all set.
+```
+$ oc get pods -n openshift-image-registry -l docker-registry=default
+NAME                              READY   STATUS    RESTARTS   AGE
+image-registry-7b55cf555c-8mj66   1/1     Running   0          9m17s
+```
 
 ### Let's set up a couple of users
 - We don't recommend using kubeadmin on a day-to-day basis for adminstering your OpenShift cluster, so we create a couple of users in this tutorial to start to familiarize with the process for setting users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd autentication file and add two users to it. 
