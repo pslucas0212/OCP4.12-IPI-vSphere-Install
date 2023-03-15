@@ -102,7 +102,21 @@ tar xvf openshift-install-mac.tar
 - For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
   
   
-- Unzip the download.zip file that contains the vCenter certs.  In the certs folder you'll see three subfolders for linux, mac and windows.  You can use the "tree certs" command to see the files and file structure.
+- Unzip the download.zip file that contains the vCenter certs.  
+ 
+ 
+- On a Mac the download.zip file will automatically unzip in the Downloads directory.  You can see the certs folder structure in the Mac finder.
+![Certs folders](images/finder01.png)
+
+- Right click on any of the cert in the Win folcer ending .0.cert and open with the Mac Keychain Access utility.
+
+![Open Key Chain Access](images/finder02.png)
+
+- Add the cert the System | System Keychains and right click the CA to update the trust.  Close the Keychain Access utility.
+
+![Update Trust]((images/finder03.png)
+
+- In the certs folder you'll see three subfolders for linux, mac and windows.  With a Linuxx client you can use the "tree certs" command to see the files and file structure.
   
 ```
 $ tree certs
@@ -119,13 +133,13 @@ certs
 
 3 directories, 6 files
 ```
-- Run the following commands to update your system trust.
+- If you are going to run the install from Linux use the following commands to update your system trust.
  
 ``` 
 $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
 $ sudo update-ca-trust extract
 ```  
-  
+
 - We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installation artifacts directory ocp.  
 
 At the time that I created this article, there was a known bug in the OpenShift installer for 4.12 and you will have to generate the install-config.yaml first and then modify it to run the installation.  See this Red Hat Knowledge center article - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
