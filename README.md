@@ -358,6 +358,7 @@ admin
 - We want developers to be able to create and delete project related resources.  We give the developers group edit capability.
 ```
 $ oc policy add-role-to-group edit developers
+clusterrole.rbac.authorization.k8s.io/edit added: "developers"
 ```
 
 - Currently the developers group has the ability to create new projects.  We can remove that capability from the group if that makes sense for you organization.  Let's login to the OpenShift cluster as a developer and create a new project
