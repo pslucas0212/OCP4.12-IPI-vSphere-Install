@@ -218,8 +218,7 @@ x kubectl
 ```
 % sudo mv oc /usr/local/bin
 % sudo mv kubectl /usr/local/bin 
-
-``
+```
 
 - Export the Kubeconfig file.  Be sure to permanently add the export to your startup.
 ```
