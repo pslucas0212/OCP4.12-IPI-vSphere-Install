@@ -371,6 +371,9 @@ Login successful.
 You have one project on this server: "default"
 
 Using project "default".
+```
+- Now that we are logged in as the developer let's create a new project.  A project in OpenShift is a kuberenetes namespace with additional annotations.
+```
 $ oc new-project my-first-app
 Now using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
@@ -390,9 +393,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ```
 
 ### Inastalling a simple test application
-- Let's now deploy a simple test applicaition via the admin console to verify that the cluster is working.  First login to the admin console
-
-
+- The oc new-app commands provides us with easy access to many sample containers and applications.  Since Openshift is 100% kuberenetes compliant you deploy applications that you create or from any source.
 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
