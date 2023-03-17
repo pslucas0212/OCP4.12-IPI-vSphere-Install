@@ -393,32 +393,15 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ```
 
 ### Inastalling a simple test application
-- The oc new-app commands provides us with easy access to many sample containers and applications.  Since Openshift is 100% kuberenetes compliant you deploy applications that you create or from any source.
-- Let's deploy a nginx container with the oc new-app command
-```
-$ oc new-app --image=nginx --name=nginx-welcome
-warning: Cannot find git. Ensure that it is installed and in your path. Git is required to work with git repositories.
---> Found container image 904b8cb (2 weeks old) from Docker Hub for "nginx"
+- For application deployments on OpenShift we would follow the least privelaged model.  Setting up the service account and the appropriate security context contstraint for this test container deployment is beyond the scope of this short tutorial.  I would recommend reading this article [Get started with security context constraints on Red Hat OpenShift](https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/) and working through the tutorial, which you can run on the Openshift we just created.  
 
-    * An image stream tag will be created as "nginx-welcome:latest" that will track this image
+- Login into the Openshift cluster as admin and change the security context contraint for the my-first-app namespace.
+```
+$ oc adm policy add-scc-to-user anyuid -n my-first-app -z default
+clusterrole.rbac.authorization.k8s.io/system:openshift:scc:anyuid added: "default"
+```
 
---> Creating resources ...
-    imagestream.image.openshift.io "nginx-welcome" created
-Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "nginx-welcome" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx-welcome" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx-welcome" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx-welcome" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
-    deployment.apps "nginx-welcome" created
-    service "nginx-welcome" created
---> Success
-    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
-     'oc expose service/nginx-welcome' 
-    Run 'oc status' to view your app.
-```
-- We see a lot of warning information in the output of the oc new-app command.  Let's see if our pod started
-```
-$ oc get pods
-NAME                             READY   STATUS             RESTARTS      AGE
-nginx-welcome-7649f7d699-zfmch   0/1     CrashLoopBackOff   3 (33s ago)   81s
-```
-- We see our pods is not starting and this is because of the security contraints setup in OCP 4.12.  In this case the nginx container needs root privelages during its startup.
+- 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
  - [Get started with security context constraints on Red Hat OpenShift](https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/)
