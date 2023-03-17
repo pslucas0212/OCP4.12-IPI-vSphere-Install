@@ -421,3 +421,4 @@ nginx-welcome-7649f7d699-zfmch   0/1     CrashLoopBackOff   3 (33s ago)   81s
 - We see our pods is not starting and this is because of the security contraints setup in OCP 4.12.  In this case the nginx container needs root privelages during its startup.
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
+ - [Get started with security context constraints on Red Hat OpenShift](https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/)
