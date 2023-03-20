@@ -3,7 +3,7 @@
 In progress on 20 March 2023
 
 
-The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
+The release of Red Hat OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
 
 The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
 
@@ -73,11 +73,11 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 ``` 
   
  ### Get the OCP 4.12 installation software
- - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  On the Red Hat Hybrid Cloud Console page, click the Openshift side tab
+ - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  On the Red Hat Hybrid Cloud Console page, click the OpenShift side tab
 
 ![Choose OpenShift Tab](images/OCP01.png)  
   
-- On the Openshift page of the Red Hat Hybrid Console page, choose the Clusters tab on the side and the click the blue Create Cluster button
+- On the OpenShift page of the Red Hat Hybrid Console page, choose the Clusters tab on the side and the click the blue Create Cluster button
 
 ![Create Cluster button](images/OCP02.png)  
 
@@ -393,9 +393,9 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ```
 
 ### Installing a simple test application
-- We have been doing a lot of work from the command line, so let's switch to the Openshift Administration Console to set up our new application.
+- We have been doing a lot of work from the command line, so let's switch to the OpenShift Administration Console to set up our new application.
 
-- Paste the Openshift Administration Console url into a web browser.  Admin console url for my cluster looks like this - https://console-openshift-console.apps.ocp4.example.com.  At the console 
+- Paste the OpenShift Administration Console url into a web browser.  Admin console url for my cluster looks like this - https://console-openshift-console.apps.ocp4.example.com.  At the console 
 
 - At admin console, click the cluster-users button and on the next screen provide your user name and password.  For this part of the tutorial we are going to login as the developer. 
 
@@ -433,7 +433,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![Click route link](images/OCP16.png)
 
-- Congratulations!  You've successfully installed an Openshift cluster, created users, created your first project and deployed your first application.
+- Congratulations!  You've successfully installed a Red Hat OpenShift cluster, created users, created your first project and deployed your first application.
 
 ![Welcome to Nginx!](images/OCP17.png)
 
@@ -446,9 +446,9 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ![Administrator View](images/OCP19.png)
 
 ### Summary
-In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat Openshift cluster to a EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone Openshift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive Openshift Administrator Console.
+In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat OpenShift cluster to a EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone OpenShift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive OpenShift Administrator Console.
 
-Openshift provides you with an end-to-end enterprise ready kubernetes environment with all the tools you need to develop on the desktop and deploy to production.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with Openshift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant Openshift cluster.
+OpenShift provides you with an end-to-end enterprise ready kubernetes environment with all the tools you need to develop on the desktop and deploy to production.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with OpenShift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant OpenShift cluster.
 
 
 
