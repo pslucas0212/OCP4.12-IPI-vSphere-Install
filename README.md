@@ -443,7 +443,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 - Change your view back to the Administrator view and look through the other configuration settings we created earlier via the command line
 
-!Administrator View](images/OCP19.png)
+![Administrator View](images/OCP19.png)
 
 ### Summary
 In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat Openshift cluster in vSphere environment via the Installer-provisioned Installation (IPI). We can use this standalone alone Openshift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive Openshift Administrator Console.
