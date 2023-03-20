@@ -1,8 +1,5 @@
 # OpenShift 4.12 vSphere Installer Provisioned Infrastructure Tutorial
 
-In progress on 20 March 2023
-
-
 The release of Red Hat OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly provision an OpenShift cluster in a VMWare EXSi environment.  This cluster could be used for some quick testing or development.
 
 The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The EXSi IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
@@ -102,7 +99,7 @@ $ tar xvf openshift-install-linux.tar.gz
 - For the installation, we need the vCenter’s trusted root CA certificates to allow the OpenShift installation program to access your vCenter via it's API.  You can download the vCenter certificates via the vCenter URL.  For example, my vCenter URL to download the vCenter certificates is https://vsca01.example.com/certs/download.zip
   
   
-- Unzip the download.zip file that contains the vCenter ceritificates.  With a Linux client you can use the "tree certs" command to see the files and file structure.
+- Unzip the download.zip file that contains the vCenter certificates.  With a Linux client you can use the "tree certs" command to see the files and file structure.
   
 ```
 $ tree certs
@@ -128,7 +125,7 @@ $ sudo update-ca-trust extract
 
 - We are now ready to deploy the OpenShift cluster.  Change to the installation directory.  
 
-At the time that I created this article, there was a known bug in the OpenShift installer for 4.12 and you will have to generate the install-config.yaml first and then modify it to run the installation.  See this Red Hat Knowledge center article - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
+At the time that I created this article, there was a known bug in the OpenShift installer for 4.12 and you will have to generate the the install-config.yaml first and then modify it to run the installation.  See this Red Hat Knowledge center article - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
  
 - Due to the bug, the install is a two step process.  First we will run the install command with install-config option to generate the install-config.yaml that we will modify.  
 
@@ -281,7 +278,7 @@ image-registry-7b55cf555c-8mj66   1/1     Running   0          9m17s
 ```
 
 ### Let's set up a couple of users
-- We don't recommend using kubeadmin on a day-to-day basis for administering your OpenShift cluster, we will create two users in this tutorial to start to familiarize you with the process for setting creating users and groups.  For ease of the tutorial, we will use htpasswd to set up some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd authentication file and add two users to it. 
+- We don't recommend using kubeadmin on a day-to-day basis for administering your OpenShift cluster, we will create two users in this tutorial to start to familiarize you with the process for creating users and groups.  For ease of the tutorial, we will use htpasswd to set up some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd authentication file and add two users to it. 
 ```
 $ touch /tmp/cluster-ids
 $ htpasswd -B -b /tmp/cluster-ids admin xxxxxxxx
@@ -296,7 +293,7 @@ $ oc create secret generic cluster-users --from-file htpasswd=/tmp/cluster-ids -
 secret/cluster-users created
 ```
 
-- We will now update the OAuth resource on our cluster and add the HTPasswd identity provider defintion to the cluster's identity provider list.  Export the OpenShift cluster OAuth resource to a yaml file.
+- We will now update the OAuth resource on our cluster and add the HTPasswd identity provider definition to the cluster's identity provider list.  Export the OpenShift cluster OAuth resource to a yaml file.
 ```
 oc get oauth cluster -o yaml > /tmp/oauth.yaml
 ```
@@ -398,7 +395,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 - Paste the OpenShift Administration Console url into a web browser.  The admin console url for my cluster looks like this - https://console-openshift-console.apps.ocp4.example.com. 
 
-- At admin console, click the cluster-users button and on the next screen provide your username and password, and then click the blue Log in button.  For this part of the tutorial we are going to login as the developer. 
+- At the admin console, click the cluster-users button and on the next screen provide your username and password, and then click the blue Log in button.  For this part of the tutorial we are going to login as the developer. 
 
 ![OpenShift Administrator Console Splash Screen](images/OCP08.png)
 
@@ -447,9 +444,9 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ![Administrator View](images/OCP19.png)
 
 ### Summary
-In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat OpenShift cluster to an EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone OpenShift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have seen how easy it is to use the intuitive OpenShift Administrator Console to create, configure, manage and monitor kuberenetes objects in our OpenShift cluster.
+In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat OpenShift cluster to an EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone OpenShift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have seen how easy it is to use the intuitive OpenShift Administrator Console to create, configure, manage and monitor kubernetes objects in our OpenShift cluster.
 
-OpenShift provides you with an end-to-end enterprise ready kubernetes environment with all the tools.  Openshift supports you from development and testing kubernetes based applications on the desktop and to deploying these applications to production OpenShift cluster.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with OpenShift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant OpenShift cluster.
+OpenShift provides you with an end-to-end enterprise ready kubernetes environment with all the tools.  Openshift supports you from development and testing kubernetes based applications on the desktop and to deploying these applications to a production OpenShift cluster.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with OpenShift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant OpenShift cluster.
 
 
 
