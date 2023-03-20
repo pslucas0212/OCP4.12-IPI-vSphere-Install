@@ -7,15 +7,15 @@ The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installat
 
 The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
 
-For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formally used for gaming purposes.  The EXSI environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
+For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formerly used for gaming purposes.  The EXSI environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
 
 
 ## Installation Steps
 
 ### Installation Pre-reqs:
-For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.  My DHCP server is setup to dynmically update the DNS services with hostname and address.
+For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.  My DHCP server is set up to dynamically update the DNS services with hostname and address.
 
-- For the OCP 4.12 IPI you need to define two static IP address.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
+- For the OCP 4.12 IPI you need to define two static IP addresses.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
 
 
  File Name | Location | Info
@@ -47,7 +47,7 @@ api.ocp4.example.
     
 - The DHCP service does not require any additional changes
 
-### Create an ssh key for authtenication to the control-plane node.
+### Create an ssh key for authentication to the control-plane node.
 1. Create an ssh key 
 ```       
 $ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
@@ -99,7 +99,7 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 $ tar xvf openshift-install-linux.tar.gz
 ```
 
-- For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter cerfiticates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
+- For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter certificates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
   
   
 - Unzip the download.zip file that contains the vCenter certs.  With a Linux client you can use the "tree certs" command to see the files and file structure.
@@ -199,7 +199,7 @@ INFO Time elapsed: 39m9s
 - You can now log into your newly created OpenShift cluster using kubeadmin and the password created during the installation.
 ![Login to OpenShift](images/OCP06.png)
 
-- You will now be at the Home page of your OpenShift cluster.  
+- You will now be at the Homepage of your OpenShift cluster.  
 
 ![OpenShift Cluster Home](images/OCP07.png)
 
@@ -208,7 +208,7 @@ INFO Time elapsed: 39m9s
 
 ### Install the Command Line Interface
  
-You have the choice of installating the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line on the Red Hat Enterprise Linux server...
+You have the choice of installing the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line on the Red Hat Enterprise Linux server...
 
 - Untar the OpenShift client
 ```
@@ -243,9 +243,9 @@ Using project "default".
 Welcome! See 'oc help' to get started.
 ```
 
-### Create a local image registery
+### Create a local image registry
 
-- During the installation, OpenShift skips creating an internal image registry since it isn't aware of shareable object storage that you might be using with a quick installation like in this example.  For our openshift cluster, we will use the availabe VMWare datastore to define storage for our cluster.
+- During the installation, OpenShift skips creating an internal image registry since it isn't aware of shareable object storage that you might be using with a quick installation like in this example.  For our openshift cluster, we will use the available VMWare datastore to define storage for our cluster.
 
 - We will enable the registry by first creating a persistent volume claim via the command line
 ```
@@ -280,7 +280,7 @@ image-registry-7b55cf555c-8mj66   1/1     Running   0          9m17s
 ```
 
 ### Let's set up a couple of users
-- We don't recommend using kubeadmin on a day-to-day basis for adminstering your OpenShift cluster, so we create a couple of users in this tutorial to start to familiarize with the process for setting users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd autentication file and add two users to it. 
+- We don't recommend using kubeadmin on a day-to-day basis for administering your OpenShift cluster, we will create two users in this tutorial to start to familiarize you with the process for setting creating users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd authentication file and add two users to it. 
 ```
 $ touch /tmp/cluster-ids
 $ htpasswd -B -b /tmp/cluster-ids admin xxxxxxxx
@@ -289,17 +289,17 @@ $ htpasswd -B -b /tmp/cluster-ids developer xxxxxxxx
 Adding password for user developer
 ```
 
-- Next we will create a secret from the htpasswe file.
+- Next we will create a secret from the htpasswd file.
 ```
 $ oc create secret generic cluster-users --from-file htpasswd=/tmp/cluster-ids -n openshift-config
 secret/cluster-users created
 ```
 
-- We will now update the OAuth resource on our cluster add the HTPasswd identity provider defintion to the clusters identity provider list.  Export the OAuth resource to a yaml file
+- We will now update the OAuth resource on our cluster and add the HTPasswd identity provider defintion to the cluster's identity provider list.  Export the OAuth resource to a yaml file
 ```
 oc get oauth cluster -o yaml > /tmp/oauth.yaml
 ```
--  Update the spec section of the OAuth.yaml file.  After updating the file we will updat our OpenShift cluster with new yaml file.
+-  Update the spec section of the OAuth.yaml file.  After updating the file we will update our OpenShift cluster with teh new yaml file.
 ```
 spec: 
   identityProviders:
@@ -314,7 +314,7 @@ spec:
 $ oc replace -f /tmp/oauth.yaml 
 oauth.config.openshift.io/cluster replaced
 ```
-- We will make assign the cluster admin role to the admin user.  You can ignore the error as the admin doesn't exit until you log in the first time as admin
+- We will assign the cluster admin role to the admin user.  You can ignore the error as the admin doesn't exit until you log in the first time as admin
 ```
 $ oc adm policy add-cluster-role-to-user cluster-admin admin
 Warning: User 'admin' not found
