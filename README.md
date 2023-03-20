@@ -132,7 +132,7 @@ At the time that I created this article, there was a known bug in the OpenShift 
  
 - Due to the bug, the install is a two step process.  First we will run the install command create install-config command to generate the install-config.yaml that we will modify.  
 
-- The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to chose the appropriate response.  You can copy and paste the pull secret into the final question.  Press the enter key after each selection.  See the following completed example.
+- The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to choose the appropriate response.  You can copy and paste the pull secret into the final question.  Press the enter key after each selection.  See the following completed example.
    
  ```
  $ ./openshift-install create install-config --dir=ocp4
@@ -280,7 +280,7 @@ image-registry-7b55cf555c-8mj66   1/1     Running   0          9m17s
 ```
 
 ### Let's set up a couple of users
-- We don't recommend using kubeadmin on a day-to-day basis for administering your OpenShift cluster, we will create two users in this tutorial to start to familiarize you with the process for setting creating users and groups.  For ease of the tutorial, we will use htpasswd to setup some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd authentication file and add two users to it. 
+- We don't recommend using kubeadmin on a day-to-day basis for administering your OpenShift cluster, we will create two users in this tutorial to start to familiarize you with the process for setting creating users and groups.  For ease of the tutorial, we will use htpasswd to set up some basic authentication for our OpenShift cluster.  First we will create a temporary htpasswd authentication file and add two users to it. 
 ```
 $ touch /tmp/cluster-ids
 $ htpasswd -B -b /tmp/cluster-ids admin xxxxxxxx
@@ -361,7 +361,7 @@ $ oc policy add-role-to-group edit developers
 clusterrole.rbac.authorization.k8s.io/edit added: "developers"
 ```
 
-- Currently the developers group has the ability to create new projects.  We can remove that capability from the group if that makes sense for you organization.  Let's login to the OpenShift cluster as a developer and create a new project
+- Currently the developers group has the ability to create new projects.  We can remove that capability from the group if that makes sense for your organization.  Let's login to the OpenShift cluster as a developer and create a new project
 ```
 $ oc login -u developer -p xxxxxxxx
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -372,7 +372,7 @@ You have one project on this server: "default"
 
 Using project "default".
 ```
-- Now that we are logged in as the developer let's create a new project.  A project in OpenShift is a kuberenetes namespace with additional annotations.
+- Now that we are logged in as the developer, let's create a new project.  A project in OpenShift is a kubernetes namespace with additional annotations.
 ```
 $ oc new-project my-first-app
 Now using project "my-first-app" on server "https://api.ocp4.example.com:6443".
@@ -425,7 +425,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![Create Sample Application](images/OCP14.png)
 
-- When the build deployment starts, the first step is creating the build of the application.  The admin console will take you to the Topology view and you will see the deployment tile for our application.  Click on the tile to bring up the details of our deployment and you wil see the Build is in process.
+- When the build deployment starts, the first step is creating the build of the application.  The admin console will take you to the Topology view and you will see the deployment tile for our application.  Click on the tile to bring up the details of our deployment and you will see the Build is in process.
 
 ![Click the Deployment tile](images/OCP15.png)
 
