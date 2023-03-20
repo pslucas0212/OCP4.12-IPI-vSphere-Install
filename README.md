@@ -7,7 +7,7 @@ The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installat
 
 The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
 
-For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formerly used for gaming purposes.  The EXSI environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
+For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formerly used for gaming purposes.  The EXSi environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
 
 
 ## Installation Steps
@@ -446,7 +446,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ![Administrator View](images/OCP19.png)
 
 ### Summary
-In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat Openshift cluster to a vSphere environment via the Installer-provisioned Installation (IPI). We can use this standalone Openshift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive Openshift Administrator Console.
+In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat Openshift cluster to a EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone Openshift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive Openshift Administrator Console.
 
 Openshift provides you with an end-to-end enterprise ready kubernetes environment with all the tools you need to develop on the desktop and deploy to production.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with Openshift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant Openshift cluster.
 
