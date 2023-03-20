@@ -3,19 +3,19 @@
 In progress on 20 March 2023
 
 
-The release of Red Hat OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
+The release of Red Hat OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly provision an OpenShift cluster in a VMWare EXSi environment.  This cluster could be used for some quick testing or development.
 
-The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The vSphere IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
+The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The EXSi IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
 
-For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formerly used for gaming purposes.  The EXSi environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm also using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  All the following instructions are run from a terminal on this RHEL 8 server VM running in my vSphere cluster.
+For this tutorial I'm using a home built lab made up of three x86 8-core 64GB RAM machines formerly used for gaming purposes.  The EXSi environment is a bare bones VMWare vSphere Essentials 7.0.3 setup.  I'm using a two bay Synology NAS for shared storage across the vSphere cluster.  Finally I ran the installation from a RHEL 8 server instance that was hosting both DNS and DHCP services.  The command line instructions are run from a terminal of a RHEL 8 server VM running in this vSphere cluster.
 
 
 ## Installation Steps
 
 ### Installation Pre-reqs:
-For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to the cluster.  My DHCP server is set up to dynamically update the DNS services with hostname and address.
+For an OpenShift 4.12 IPI vSphere installation, you need DNS and DHCP available for the cluster. 
 
-- For the OCP 4.12 IPI you need to define two static IP addresses.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
+- For the OpenShift 4.12 IPI you need to define two static IP addresses.  One for the cluster api access api.ocp4.example.com and one for cluster ingress access *.apps.ocp4.example.com. For my lab I use example.com as the domain.  
 
 
  File Name | Location | Info
@@ -24,20 +24,20 @@ For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to t
  db.example.com | /var/named/dynamic | forward zone file
 
 
-  - Add the following to the forward zone db.example.com file
+  - Add the following to the forward zone db.example.com file.
 ```
   api.ocp4	IN	A	10.1.10.201
   *.apps.ocp4	IN	A	10.1.10.202
 ```
   
-  - Add the following to the reverse zone db.10.1.10.in-addr.arpa file
+  - Add the following to the reverse zone db.10.1.10.in-addr.arpa file.
 ```
   api.ocp4	A	10.1.10.201
   *.apps.ocp4	A	10.1.10.202
   201	IN	PTR	api.ocp4.example.com.
 ```
 
-- Verify that both forward and reverse looks up are working
+- Verify that both forward and reverse look up are working.
 ```        
 # dig api.ocp4.example.com +short
 10.1.10.201
@@ -45,10 +45,10 @@ For this OCP 4.12 IPI vSphere installation, you need DNS and DHCP available to t
 api.ocp4.example.
 ```      
     
-- The DHCP service does not require any additional changes
+- The DHCP service does not require any additional changes.
 
 ### Create an ssh key for authentication to the control-plane node.
-1. Create an ssh key 
+1. Create an ssh key for the installation.
 ```       
 $ ssh-keygen -t ed25519 -N '' -f ~/.ssh/ocp412
 Generating public/private ed25519 key pair.
@@ -73,19 +73,19 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
 ``` 
   
  ### Get the OCP 4.12 installation software
- - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  On the Red Hat Hybrid Cloud Console page, click the OpenShift side tab
+ - Login to [Red Hat Hybrid Cloud Console](https://console.redhat.com).  On the Red Hat Hybrid Cloud Console page, click on the OpenShift side tab.
 
 ![Choose OpenShift Tab](images/OCP01.png)  
   
-- On the OpenShift page of the Red Hat Hybrid Console page, choose the Clusters tab on the side and the click the blue Create Cluster button
+- On the OpenShift page of the Red Hat Hybrid Console page, choose the Clusters tab on the side and the click the blue Create Cluster button.
 
 ![Create Cluster button](images/OCP02.png)  
 
-- On the Clusters > Cluster Type page, click the Datacenter tab and scroll down on the screen and click the vSphere link
+- On the Clusters > Cluster Type page, click the Datacenter tab and scroll down on the screen and click the vSphere link.
 
 ![Click vSphere link](images/OCP03.png) 
 
-- On the Clusters > Cluster Type > VMWare vSphere page, click on the Local Agent-based tile
+- On the Clusters > Cluster Type > VMWare vSphere page, click on the Local Agent-based tile.
 
 ![Click Local Agent-based tile](images/OCP04.png) 
  
@@ -93,16 +93,16 @@ Identity added: /home/pslucas/.ssh/ocp412 (pslucas@ns02.example.com)
  
  ![Download OpenShift Installer](images/OCP05.png)
  
- - I made a separate directory named ocp412 in my home directory to run the installation for the OCP cluster.  Move thet openshift-install-linux.tar.gz and pull-secret files there.  In your "install" directory untar the openshift-install-linux.tar.gz
+ - I made a separate directory named ocp412 in my home directory to run the installation for the OpenShift cluster.  Move thet openshift-install-linux.tar.gz and pull-secret files there.  In your install directory untar the openshift-install-linux.tar.gz
 
 ```
 $ tar xvf openshift-install-linux.tar.gz
 ```
 
-- For the installation, we need the vCenter’s trusted root CA certificates to allow the OCP installation program to access your vCenter via it's API.  You can download the vCenter certificates via the vCenter URL.  My vCenter URL is https://vsca01.example.com/certs/download.zip
+- For the installation, we need the vCenter’s trusted root CA certificates to allow the OpenShift installation program to access your vCenter via it's API.  You can download the vCenter certificates via the vCenter URL.  For example, my vCenter URL to download the vCenter certificates is https://vsca01.example.com/certs/download.zip
   
   
-- Unzip the download.zip file that contains the vCenter certs.  With a Linux client you can use the "tree certs" command to see the files and file structure.
+- Unzip the download.zip file that contains the vCenter ceritificates.  With a Linux client you can use the "tree certs" command to see the files and file structure.
   
 ```
 $ tree certs
@@ -126,13 +126,13 @@ $ sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
 $ sudo update-ca-trust extract
 ```  
 
-- We are now ready to deploy the cluster.  Change to the installation directory.  In the installation directory create a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installation artifacts directory ocp.  
+- We are now ready to deploy the OpenShift cluster.  Change to the installation directory.  
 
 At the time that I created this article, there was a known bug in the OpenShift installer for 4.12 and you will have to generate the install-config.yaml first and then modify it to run the installation.  See this Red Hat Knowledge center article - [Fail to install OCP cluster on VMware vSphere and Nutanix as apiVIP and ingressVIP are not in machine networks](https://access.redhat.com/solutions/6994972)
  
-- Due to the bug, the install is a two step process.  First we will run the install command create install-config command to generate the install-config.yaml that we will modify.  
+- Due to the bug, the install is a two step process.  First we will run the install command with install-config option to generate the install-config.yaml that we will modify.  
 
-- The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to choose the appropriate response.  You can copy and paste the pull secret into the final question.  Press the enter key after each selection.  See the following completed example.
+- The install command will step you through a set of questions regarding the installation.  Some answers may be pre-populated for you and you can use the up/down arrow key to choose the appropriate response.  You can copy and paste the pull secret into the final question.  Press the enter key after each selection.  The OpenShift installation program creates a directory to store the installation artifacts (configuration, authentication information, log files, etc.)  I called my installation artifacts directory ocp4 (--dir=ocp4).  See the following completed example.
    
  ```
  $ ./openshift-install create install-config --dir=ocp4
@@ -177,6 +177,7 @@ INFO Install-Config created in: ocp4
     - 10.1.10.202
  ```
 - Now run the installation with the create cluster option. You'll see a series of messages like those below as the install progresses.  This installation in my lab took about 39 minutes.
+
 - While the installation is running you can view the bootstrap VM creating the control-plane VMs and then the worker VMs in the vSphere client.
  ```   
 $ $ ./openshift-install create cluster --dir ./ocp4 --log-level=info
@@ -204,19 +205,19 @@ INFO Time elapsed: 39m9s
 ![OpenShift Cluster Home](images/OCP07.png)
 
 
-- You are ready to use your OCP 4.7 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
+- You are ready to use your OCP 4.12 Cluster.  Don't forget to install the command line client that you downloaded  earlier.
 
 ### Install the Command Line Interface
  
-You have the choice of installing the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line on the Red Hat Enterprise Linux server...
+You have the choice of installing the OpenShift Command Line interface for Linux, Mac or Windows.  In this part of the tutorial, I'm going to set up the command line on the Red Hat Enterprise Linux 8 server that I used for the installation of the OpenShift cluster.
 
-- Untar the OpenShift client
+- Untar the OpenShift client.
 ```
 $ tar xvf openshift-client-linux.tar.gz 
 README.md
 oc
 ```
-- Move the oc and kubectl files to the /usr/local/bin directory
+- Move the oc and kubectl files to the /usr/local/bin directory.
 ```
 $ sudo mv oc /usr/local/bin
 $ sudo mv kubectl /usr/local/bin 
@@ -226,7 +227,7 @@ $ sudo mv kubectl /usr/local/bin
 ```
 export KUBECONFIG=/home/pslucas/ocp412/ocp4/auth/kubeconfig
 ```
-- Now you can test your login to your OpenShift cluster
+- Now you can test your login to your OpenShift cluster.
 ```
 $ oc login -u kubeadmin -p SAxqE-...-zBEjz https://api.ocp4.example.com:6443
 The server uses a certificate signed by an unknown authority.
@@ -245,9 +246,9 @@ Welcome! See 'oc help' to get started.
 
 ### Create a local image registry
 
-- During the installation, OpenShift skips creating an internal image registry since it isn't aware of shareable object storage that you might be using with a quick installation like in this example.  For our openshift cluster, we will use the available VMWare datastore to define storage for our cluster.
+- During this OpenShift installation, OpenShift skips creating an internal image registry since it isn't aware of shareable object storage that you might be using with a quick installation like in this example.  For our openshift cluster, we will use the available VMWare datastore to define storage for our cluster.
 
-- We will enable the registry by first creating a persistent volume claim via the command line
+- We will enable the registry by first creating a persistent volume claim via the command line.
 ```
 $ cat <<EOF >> image-registry-pvc.yaml
 > apiVersion: v1
@@ -267,7 +268,7 @@ $ oc apply -f image-registry-pvc.yaml
 persistentvolumeclaim/image-registry-storage created
 ```
 
-- Next we will patch the image registry operatory config
+- Next we will patch the image registry operatory config.
 ```
 $ oc apply -f image-registry-pvc.yaml 
 persistentvolumeclaim/image-registry-storage created
@@ -295,11 +296,11 @@ $ oc create secret generic cluster-users --from-file htpasswd=/tmp/cluster-ids -
 secret/cluster-users created
 ```
 
-- We will now update the OAuth resource on our cluster and add the HTPasswd identity provider defintion to the cluster's identity provider list.  Export the OAuth resource to a yaml file
+- We will now update the OAuth resource on our cluster and add the HTPasswd identity provider defintion to the cluster's identity provider list.  Export the OpenShift cluster OAuth resource to a yaml file.
 ```
 oc get oauth cluster -o yaml > /tmp/oauth.yaml
 ```
--  Update the spec section of the OAuth.yaml file.  After updating the file we will update our OpenShift cluster with teh new yaml file.
+-  Update the spec section of the OAuth.yaml file.  After updating the file we will update our OpenShift cluster with the new yaml file.
 ```
 spec: 
   identityProviders:
@@ -314,13 +315,13 @@ spec:
 $ oc replace -f /tmp/oauth.yaml 
 oauth.config.openshift.io/cluster replaced
 ```
-- We will assign the cluster admin role to the admin user.  You can ignore the error as the admin doesn't exit until you log in the first time as admin
+- We will assign the cluster admin role to the admin user.  You can ignore the error as the admin doesn't exit until you log in the first time as the admin.
 ```
 $ oc adm policy add-cluster-role-to-user cluster-admin admin
 Warning: User 'admin' not found
 clusterrole.rbac.authorization.k8s.io/cluster-admin added: "admin"
 ```
--  We will now need to wait until the oauth-openshift pods in the openshift-authetication space are restarted
+-  We will now need to wait until the oauth-openshift pods in the openshift-authetication space are restarted.
 ```
 $ oc get pods -n openshift-authentication
 NAME                               READY   STATUS    RESTARTS   AGE
@@ -328,7 +329,7 @@ oauth-openshift-64756f8997-h6ts8   1/1     Running   0          2m2s
 oauth-openshift-64756f8997-hs6cl   1/1     Running   0          94s
 oauth-openshift-64756f8997-z4mxz   1/1     Running   0          2m30s
 ```
-- We can now login to our OpenShift cluster as the admin role to create a group and assign group cluster roles for the developer user
+- We can now login to our OpenShift cluster as the admin role to create a group and assign group cluster roles for the developer user.
 ```
 $ oc login -u admin -p xxxxxxxx
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -340,7 +341,7 @@ You have access to 67 projects, the list has been suppressed. You can list all p
 Using project "default".
 ```
 
-- Let's create a group for the developers and the developer user to the group
+- Let's create a group for the developers and add the developer user to the developers group.
 
 ```
 $ oc adm groups new developers
@@ -355,7 +356,7 @@ admin
 
 ```
 
-- We want developers to be able to create and delete project related resources.  We give the developers group edit capability.
+- We want developers to be able to create and delete project related resources.  We will give the developers group edit capability.
 ```
 $ oc policy add-role-to-group edit developers
 clusterrole.rbac.authorization.k8s.io/edit added: "developers"
@@ -395,13 +396,13 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ### Installing a simple test application
 - We have been doing a lot of work from the command line, so let's switch to the OpenShift Administration Console to set up our new application.
 
-- Paste the OpenShift Administration Console url into a web browser.  Admin console url for my cluster looks like this - https://console-openshift-console.apps.ocp4.example.com.  At the console 
+- Paste the OpenShift Administration Console url into a web browser.  The admin console url for my cluster looks like this - https://console-openshift-console.apps.ocp4.example.com. 
 
-- At admin console, click the cluster-users button and on the next screen provide your user name and password.  For this part of the tutorial we are going to login as the developer. 
+- At admin console, click the cluster-users button and on the next screen provide your username and password, and then click the blue Log in button.  For this part of the tutorial we are going to login as the developer. 
 
 ![OpenShift Administrator Console Splash Screen](images/OCP08.png)
 
-- On the admin console in the upper right corner you will see that you are logged in as the developer.  In the Administrator view from the Home screen you will see two projects including the my-first-app project we just created.  Click on the drop down near the upper left of your screen and choose Developer to change the view.  You have two views in the admin console, Administrator and Developer, that are changed according to the type of work or activities you would do in each role.  As the Developer, you do not have full admin rights as we didn't grant those to you earlier in the tutorial.
+- On the admin console in the upper right corner you will see that you are logged in as the developer.  In the Administrator view on the Home screen you will see two projects including the my-first-app project we just created.  Click on the drop down near the upper left of your screen and choose Developer to change the view.  You have two views in the admin console, Administrator and Developer, that change the view to provide you with the tabs appropriate to the type of work or activities you would do in each role.  As the Developer, you do not have full admin rights as we didn't grant those to you earlier in the tutorial.
 
 ![Choose Developer View](images/OCP09.png)
 
@@ -413,7 +414,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![Click Add Page link](images/OCP11.png)
 
-- On the add page click the View all sample link on the Create applications using samples tile
+- On the add page click the View all sample link on the Create applications using samples tile.
 
 ![Click View all samples link](images/OCP12.png)
 
@@ -429,7 +430,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![Click the Deployment tile](images/OCP15.png)
 
-- When you see that the build is complete, scroll down and you will see that Services and a Route has been created for our deployment.  Click the Rout link for my-first-nginx deployment to see the application.
+- When you see that the build is complete, scroll down and you will see that Services and a Route has been created for our deployment.  Click the Route link for my-first-nginx deployment to see the application.
 
 ![Click route link](images/OCP16.png)
 
@@ -441,14 +442,14 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![Right Click Deployment Button](images/OCP18.png)
 
-- Change your view back to the Administrator view and look through the other configuration settings we created earlier via the command line
+- Change your view back to the Administrator view and look through the other configuration settings we created earlier via the command line.  You can also do the work we did via the command line in the admin console.
 
 ![Administrator View](images/OCP19.png)
 
 ### Summary
-In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat OpenShift cluster to a EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone OpenShift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have see the easy to use and intuitive OpenShift Administrator Console.
+In this tutorial we have seen how easily and quickly we can provision a standalone Red Hat OpenShift cluster to an EXSi environment via the Installer-provisioned Installation (IPI). We can use this standalone OpenShift cluster for some quick testing or development.  We've seen how we can easily use the 100% kubernetes compliant command line to create projects and users.  We have seen how easy it is to use the intuitive OpenShift Administrator Console to create, configure, manage and monitor kuberenetes objects in our OpenShift cluster.
 
-OpenShift provides you with an end-to-end enterprise ready kubernetes environment with all the tools you need to develop on the desktop and deploy to production.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with OpenShift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant OpenShift cluster.
+OpenShift provides you with an end-to-end enterprise ready kubernetes environment with all the tools.  Openshift supports you from development and testing kubernetes based applications on the desktop and to deploying these applications to production OpenShift cluster.  Red Hat provides you with all the tools you need to automate your development and deployments.  If you have a favorite tool or product you would like to use with OpenShift for development, CI/CD pipelines, security, etc., you can add those tools to your 100% kubernetes compliant OpenShift cluster.
 
 
 
