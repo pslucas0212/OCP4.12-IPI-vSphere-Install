@@ -393,15 +393,8 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 ```
 
 ### Inastalling a simple test application
-- For application deployments on OpenShift we would follow the least privelaged model.  Setting up the service account and the appropriate security context contstraint for this test container deployment is beyond the scope of this short tutorial.  I would recommend reading this article [Get started with security context constraints on Red Hat OpenShift](https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/) and working through the tutorial, which you can run on the Openshift we just created.  
+- We have been doing a lot of work from the command line, so let's switch to the Openshift Administration Console to set up our new applcation.
 
-- Login into the Openshift cluster as admin and change the security context contraint for the my-first-app namespace.
-```
-$ oc adm policy add-scc-to-user anyuid -n my-first-app -z default
-clusterrole.rbac.authorization.k8s.io/system:openshift:scc:anyuid added: "default"
-```
 
-- 
  ### Appendix
  - [OpenShift Container Platform 4.12 Documentation](https://docs.openshift.com/container-platform/4.12/welcome/index.html)
- - [Get started with security context constraints on Red Hat OpenShift](https://developer.ibm.com/learningpaths/secure-context-constraints-openshift/)
