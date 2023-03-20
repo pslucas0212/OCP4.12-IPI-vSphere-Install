@@ -1,6 +1,6 @@
 # OpenShift 4.12 vSphere Installer Provisioned Infrastructure Tutorial
 
-In progress on 15 March 2023
+In progress on 20 March 2023
 
 
 The release of OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly spin up an OCP cluster in an EXSi environment.  This is great for testing or development.
