@@ -399,7 +399,7 @@ Using project "my-first-app" on server "https://api.ocp4.example.com:6443".
 
 ![OpenShift Administrator Console Splash Screen](images/OCP08.png)
 
-- On the admin console in the upper right corner you will see that you are logged in as the developer.  In the Administrator perspective on the Home screen you will see two projects including the my-first-app project we just created.  Click on the drop down near the upper left of your screen and choose Developer to change to the developer's perspective.  You have two perspectives in the admin console, Administrator and Developer, that change the perspective to provide you with the tabs appropriate to the type of work or activities you would do in each role.  As the Developer, you do not have full admin rights as we didn't grant those to you earlier in the tutorial.
+- On the admin console in the upper right corner you will see that you are logged in as the developer.  In the Administrator perspective on the Home screen you will see two projects including the my-first-app project we just created.  You have two perspectives in the admin console, Administrator and Developer, that change the perspective to provide you with the tabs appropriate to the type of work or activities you would do in each role.  Click on the drop down near the upper left of your screen and choose Developer to change to the developer's perspective.  As the Developer, you do not have full admin rights to the OpenShift cluster as we didn't grant those to you earlier in the tutorial.
 
 ![Choose Developer View](images/OCP09.png)
 
