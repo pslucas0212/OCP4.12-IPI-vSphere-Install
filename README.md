@@ -1,5 +1,7 @@
 # OpenShift 4.12 vSphere Installer Provisioned Infrastructure Tutorial
 
+By Paul Lucas
+
 The release of Red Hat OpenShift 4.7 added a new vSphere Installer Provisioned Installation (IPI) option that makes it very easy to quickly provision an OpenShift cluster in a VMWare EXSi environment.  This cluster could be used for some quick testing or development.
 
 The "straight" out of the box installation creates three control plane nodes and three worker nodes with minimal effort.  The EXSi IPI installation optional supports additional customizations, but in this example I will not use any of the customization capabilities.
